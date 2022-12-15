@@ -3,7 +3,6 @@ output
 node_modules/
 npm-debug.log
 crash.log
-tmp/
 /vendor/
 .bundle
 build.txt
