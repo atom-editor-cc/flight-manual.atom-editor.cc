@@ -1,6 +1,6 @@
 var gulp   = require("gulp"),
     gulpif = require("gulp-if"),
-    sass   = require("gulp-sass"),
+    sass   = require("gulp-sass")(require("sass")),
     minifyCss = require("gulp-minify-css"),
     replace = require("gulp-replace"),
     babel = require("gulp-babel"),
