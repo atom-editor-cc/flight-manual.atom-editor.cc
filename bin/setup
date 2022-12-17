@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+
+APP_ROOT = File.expand_path('..', __dir__)
+
+def log(message)
+  puts "[ bin/setup ] #{message}"
+end
+
+def system!(*args)
+  log "🏃 Executing #{args}..."
+
+  return if system(*args)
+
+  log("😭 Command #{args} failed!")
+  abort
+end
+
+FileUtils.chdir APP_ROOT do
+  log '💎 Installing Ruby gems...'
+  system! 'bundle check || bundle install --jobs=4 --retry=3'
+
+  log '📦 Installing JavaScript dependencies...'
+  system! 'npm install'
+
+  log '✨ Done!'
+end
