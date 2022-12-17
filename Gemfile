@@ -6,7 +6,7 @@ ruby '2.7.7'
 
 gem 'activesupport', '~> 4.2'
 gem 'extended-markdown-filter', '~> 0.4'
-gem 'gemoji', '2.1.0'
+gem 'gemoji', '4.0.1'
 gem 'github-markdown', '~> 0.6.9'
 gem 'html-pipeline-asciidoc_filter', '~> 1.5'
 gem 'html-pipeline-rouge_filter', '~> 1.0'
