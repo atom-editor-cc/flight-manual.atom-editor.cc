@@ -6,8 +6,7 @@ env:
   CI: true
 
 jobs:
-  build:
-    name: "Build"
+  test:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -19,4 +18,6 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
-      - run: script/cibuild
+      - run: bundle exec rake validate_article_titles
+      - run: npm run build
+      - run: bundle exec rake run_proofer
