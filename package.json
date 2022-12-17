@@ -6,8 +6,11 @@
   "license": "CC-BY-SA-4.0",
   "repository": "github:jgarber623/flight-manual.atom-editor.cc",
   "scripts": {
-    "clean": "rm -rf output/ tmp/",
-    "gulp": "gulp"
+    "build": "gulp build",
+    "clean": "rm -rf output tmp",
+    "prebuild": "npm run clean",
+    "prestart": "npm run clean",
+    "start": "gulp"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.6.0",
