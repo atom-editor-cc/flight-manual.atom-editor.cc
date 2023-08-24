@@ -1,22 +1,19 @@
 name: CI
 
-on: [push]
-
-env:
-  CI: true
+on: [pull_request, push, workflow_dispatch]
 
 jobs:
-  Build:
-    runs-on: ubuntu-latest
+  test:
+    name: Test files
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
-      - uses: actions/setup-node@v2
+          bundler-cache: true
+      - uses: actions/setup-node@v3
         with:
-          node-version: '7'
-      - name: Build
-        run: |
-          npm install
-          script/cibuild
+          cache: npm
+          node-version-file: ".nvmrc"
+      - run: npm ci
+      - run: script/test
