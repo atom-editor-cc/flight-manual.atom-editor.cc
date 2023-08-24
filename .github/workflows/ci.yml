@@ -16,4 +16,4 @@ jobs:
           cache: npm
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: script/test
+      - run: bundle exec rake test
