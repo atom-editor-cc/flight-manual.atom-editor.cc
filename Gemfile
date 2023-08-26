@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.9'
+ruby '2.7.8'
 
 # essential
 gem 'nanoc', '~> 4.7'
@@ -23,5 +23,5 @@ gem 'pry-coolline'
 
 group :test do
   gem 'colorize', '~> 0.8.1'
-  gem 'html-proofer', '~> 3.7'
+  gem 'html-proofer', '~> 3.19.4'
 end

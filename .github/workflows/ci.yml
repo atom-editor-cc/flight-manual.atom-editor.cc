@@ -1,22 +1,33 @@
 name: CI
 
-on: [push]
-
-env:
-  CI: true
+on: [pull_request, push, workflow_dispatch]
 
 jobs:
-  Build:
-    runs-on: ubuntu-latest
+  deploy:
+    name: Deploy to Cloudflare Pages
+    permissions:
+      contents: read
+      deployments: write
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-20.04
+    environment:
+      name: flight-manual-atom-editor-cc (Production)
+      url: https://flight-manual.atom-editor.cc
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
-      - uses: actions/setup-node@v2
+          bundler-cache: true
+      - uses: actions/setup-node@v3
         with:
-          node-version: '7'
-      - name: Build
-        run: |
-          npm install
-          script/cibuild
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - run: npm run gulp build
+      - uses: cloudflare/pages-action@v1
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          directory: output
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectName: flight-manual-atom-editor-cc
